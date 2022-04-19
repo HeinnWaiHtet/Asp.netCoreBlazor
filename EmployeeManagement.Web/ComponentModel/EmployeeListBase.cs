@@ -16,10 +16,10 @@ namespace EmployeeManagement.Web.ComponentModel
         /// Initialize Async Method For Initialization Data
         /// </summary>
         /// <returns></returns>
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-            this.LoadEmployees();
-            return base.OnInitializedAsync();
+            /** wait async process To Finish */
+            await Task.Run(LoadEmployees);
         }
         #endregion
 
@@ -30,6 +30,8 @@ namespace EmployeeManagement.Web.ComponentModel
         /// </summary>
         private void LoadEmployees()
         {
+            /** Create Threads For Async Process */
+            Thread.Sleep(8000);
             Employee e1 = new Employee
             {
                 EmployeeId = 1,
