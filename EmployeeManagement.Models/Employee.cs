@@ -43,7 +43,7 @@ namespace EmployeeManagement.Models
         /// <summary>
         /// Employee Department
         /// </summary>
-        public Department? Department { get; set; }
+        public int DepartmentId { get; set; }
 
         /// <summary>
         /// Employee PhotoPath
