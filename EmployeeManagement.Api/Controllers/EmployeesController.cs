@@ -117,7 +117,44 @@ namespace EmployeeManagement.Api.Controllers
         }
         #endregion
 
-        #region
+        #region UpdateEmployee
+
+        /// <summary>
+        /// Update Employee Data By Request Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<Employee?>> UpdateEmployee(int id, Employee employee)
+        {
+            try
+            {
+                /** Check Request Employee Id match or not */
+                if (id != employee.EmployeeId)
+                {
+                    /** */
+                    return this.BadRequest("Employee Id MisMatch");
+                }
+
+                /** Get Employee Data by request Id */
+                var result = await this.employeeRepository.GetEmployee(employee.EmployeeId);
+
+                if (result == null)
+                {
+                    return this.NotFound($"Employee with request Id {employee.EmployeeId} not found");
+                }
+
+                /** Return Employee With Updated Data */
+                return await this.employeeRepository.UpdateEmployee(employee);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(
+                    StatusCodes.Status400BadRequest,
+                    "Error Updating Data");
+            }
+        }
         #endregion
 
         #region
