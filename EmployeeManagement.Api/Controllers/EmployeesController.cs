@@ -89,6 +89,16 @@ namespace EmployeeManagement.Api.Controllers
                     return this.BadRequest();
                 }
 
+                /** Find Employee by Email */
+                var result = await this.employeeRepository.GetEmployeeByEmail(employee.Email ?? string.Empty);
+
+                /** Check Employee request Email is in use or not */
+                if (result != null)
+                {
+                    ModelState.AddModelError("Email", "This email is already taken by other user");
+                    return this.BadRequest(ModelState);
+                }
+
                 /** Add Employee */
                 var createdEmployee = await this.employeeRepository.AddEmployee(employee);
 
@@ -105,6 +115,9 @@ namespace EmployeeManagement.Api.Controllers
                     "Error Reteriving Data From Database");
             }
         }
+        #endregion
+
+        #region
         #endregion
 
         #region

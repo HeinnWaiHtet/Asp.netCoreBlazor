@@ -69,6 +69,14 @@ namespace EmployeeManagement.Api.Models
             await this.dbContext.Employees.FirstOrDefaultAsync(emp => emp.EmployeeId == employeeId);
 
         /// <summary>
+        /// Get Employee Data By Request Email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<Employee?> GetEmployeeByEmail(string email) =>
+            await this.dbContext.Employees.FirstOrDefaultAsync(emp => emp.Email == email) ?? null;
+
+        /// <summary>
         /// Get All Employee Data
         /// </summary>
         /// <returns></returns>
