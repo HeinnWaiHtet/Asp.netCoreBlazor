@@ -157,6 +157,38 @@ namespace EmployeeManagement.Api.Controllers
         }
         #endregion
 
+        #region DeleteEmployee
+
+        /// <summary>
+        /// Delete Employee By Request Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Employee?>> DeleteEmployee(int id)
+        {
+            try
+            {
+                /** Get Employee By Id */
+                var result = await this.employeeRepository.GetEmployee(id);
+
+                if (result == null)
+                {
+                    return this.NotFound($"Employee with Id = {id} not found");
+                }
+
+                /** Reurn Deleted Employee*/
+                return await this.employeeRepository.DeleteEmployee(id);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    "Error Deleting Employee Data");
+            }
+        }
+        #endregion
+
         #region
         #endregion
     }

@@ -44,7 +44,7 @@ namespace EmployeeManagement.Api.Models
         /// Delete Employee Data By Request Id
         /// </summary>
         /// <param name="employeeId"></param>
-        public async void DeleteEmployee(int employeeId)
+        public async Task<Employee?> DeleteEmployee(int employeeId)
         {
             /** Get Employee Data By Request Employee Id */
             var result = await this.dbContext.Employees.FirstOrDefaultAsync(
@@ -55,8 +55,10 @@ namespace EmployeeManagement.Api.Models
             {
                 this.dbContext.Employees.Remove(result);
                 this.dbContext.SaveChanges();
+                return result;
             }
 
+            return null;
         }
 
         /// <summary>
