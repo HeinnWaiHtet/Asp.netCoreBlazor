@@ -14,6 +14,11 @@ services.AddDbContextPool<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection"));
 });
+
+/** add dependency injection for employee and department */
+services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
 services.AddSwaggerGen();
 
 var app = builder.Build();
