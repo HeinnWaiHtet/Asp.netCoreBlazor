@@ -13,7 +13,7 @@ namespace EmployeeManagement.Api.Controllers
         private readonly IEmployeeRepository employeeRepository;
         #endregion
 
-        #region
+        #region Constructor
         public EmployeesController(IEmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
@@ -189,7 +189,37 @@ namespace EmployeeManagement.Api.Controllers
         }
         #endregion
 
-        #region
+        #region SearchEmployee
+
+        /// <summary>
+        /// Search Employee Data by name and gender
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        [HttpGet("search")]
+        public async Task<ActionResult<Employee>> SearchEmployee(string name, Gender? gender)
+        {
+            try
+            {
+                /** Get Employee Data by search value */
+                var result = await this.employeeRepository.Search(name, gender);
+
+                /** Check Search Data has or not */
+                if (result.Any())
+                {
+                    return this.Ok(result);
+                }
+
+                return this.NotFound();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    "Error searching employee data");
+            }
+        }
         #endregion
     }
 }

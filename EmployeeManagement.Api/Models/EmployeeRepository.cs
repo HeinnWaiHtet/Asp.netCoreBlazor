@@ -85,6 +85,11 @@ namespace EmployeeManagement.Api.Models
         public async Task<IEnumerable<Employee>> GetEmployees() =>
             await this.dbContext.Employees.ToListAsync();
 
+        /// <summary>
+        /// Update Employee Data by Request information
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public async Task<Employee?> UpdateEmployee(Employee employee)
         {
             /** Get Employee Data By Request Employee Id */
@@ -108,6 +113,35 @@ namespace EmployeeManagement.Api.Models
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Get Employee Data by Search name and gender
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Employee>> Search(string name, Gender? gender)
+        {
+            /** Create query Enumerable */
+            IQueryable<Employee> query = this.dbContext.Employees;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                /** assign to query that contains search name */
+                query = query.Where(
+                    emp => emp.FirstName.Contains(name)
+                    || emp.LastName.Contains(name));
+            }
+
+            if(gender != null)
+            {
+                /** assign query that contains search gender */
+                query = query.Where(emp => emp.Gender == gender);
+            }
+
+            /** return search found data */
+            return await query.ToListAsync();
         }
         #endregion
     }

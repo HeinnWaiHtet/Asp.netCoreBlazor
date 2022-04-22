@@ -43,5 +43,13 @@ namespace EmployeeManagement.Api.Models
         /// </summary>
         /// <param name="employeeId"></param>
         Task<Employee?> DeleteEmployee(int employeeId);
+
+        /// <summary>
+        /// Search Employee Data by name and gender
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Employee>> Search(string name, Gender? gender);
     }
 }
