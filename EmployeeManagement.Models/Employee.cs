@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,16 +19,20 @@ namespace EmployeeManagement.Models
         /// <summary>
         /// Employee FirstName
         /// </summary>
+        [Required]
+        [StringLength(100, MinimumLength = 3)]
         public string? FirstName { get; set; }
 
         /// <summary>
         /// Employee LastName
         /// </summary>
+        [Required]
         public string? LastName { get; set; }
 
         /// <summary>
         /// Employee Email
         /// </summary>
+        [Required]
         public string? Email { get; set; }
 
         /// <summary>
