@@ -27,6 +27,17 @@ namespace EmployeeManagement.Web.Services
         {
             return await this.httpClient.GetFromJsonAsync<Employee[]?>("api/employees");
         }
+
+        /// <summary>
+        /// Get Employee Data By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Employee?> GetEmployeeById(int id)
+        {
+            return await this.httpClient.GetFromJsonAsync<Employee?>($"api/employees/{id}");
+        }
+
         #endregion
     }
 }
