@@ -51,6 +51,11 @@ namespace EmployeeManagement.Models
         public int DepartmentId { get; set; }
 
         /// <summary>
+        /// Deparment For Join Employee
+        /// </summary>
+        public Department? Department { get; set; }
+
+        /// <summary>
         /// Employee PhotoPath
         /// </summary>
         public string? PhotoPath { get; set; }

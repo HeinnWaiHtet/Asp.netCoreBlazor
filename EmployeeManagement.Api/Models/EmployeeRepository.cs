@@ -68,7 +68,9 @@ namespace EmployeeManagement.Api.Models
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public async Task<Employee?> GetEmployee(int employeeId) =>
-            await this.dbContext.Employees.FirstOrDefaultAsync(emp => emp.EmployeeId == employeeId);
+            await this.dbContext.Employees
+            .Include(e => e.Department)
+            .FirstOrDefaultAsync(emp => emp.EmployeeId == employeeId);
 
         /// <summary>
         /// Get Employee Data By Request Email
