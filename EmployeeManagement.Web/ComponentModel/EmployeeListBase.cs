@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models;
+using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace EmployeeManagement.Web.ComponentModel
@@ -8,6 +9,10 @@ namespace EmployeeManagement.Web.ComponentModel
         #region Properties
 
         public IEnumerable<Employee>? Employees { get; set; }
+
+        /** Injection for Employee Service */
+        [Inject]
+        public IEmployeeService employeeService { get; set; }
         #endregion
 
         #region ProtectedMethods
@@ -18,8 +23,8 @@ namespace EmployeeManagement.Web.ComponentModel
         /// <returns></returns>
         protected override async Task OnInitializedAsync()
         {
-            /** wait async process To Finish */
-            await Task.Run(LoadEmployees);
+            /** Get Employee Data From API */
+            this.Employees = (await this.employeeService.GetEmployees())?.ToList();
         }
         #endregion
 
